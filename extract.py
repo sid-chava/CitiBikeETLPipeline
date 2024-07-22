@@ -39,6 +39,7 @@ def download_csv(urls):
                                 continue  # Skip files with no data
         else:
             response.raise_for_status()
+            print(f"Failed to download {url}")
 
     # Drop duplicates for each DataFrame in all_data
     for key in all_data:
@@ -46,13 +47,10 @@ def download_csv(urls):
 
     return list(all_data.values())
 
-# List of URLs
-csv_urls = [
-    'https://s3.amazonaws.com/tripdata/202405-citibike-tripdata.zip',
-    # Add other URLs here
-]
+csv_urls = []
 
 csv_data_list = download_csv(csv_urls)
+print(f"Downloaded {len(csv_data_list)} CSV files.")
 
 # Print the shape of each DataFrame to confirm data is loaded
 for i, csv_data in enumerate(csv_data_list, start=1):
